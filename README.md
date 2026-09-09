@@ -1,6 +1,8 @@
 # Segment188
 
 Arduino library for driving the 188-type charlieplexed LED digital segment display. Displays values 0–199 using 5 GPIO pins and no extra driver hardware.
+
+
 ![Wiring diagram](images/wiring.png)
 
 Hardware Setup
