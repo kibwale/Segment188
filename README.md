@@ -1,30 +1,20 @@
 # Segment188
 
-Arduino library for driving the 188-type charlieplexed LED digital tube
-(e.g. YF2252SR-5) — the "1.88"-style indicator used in TWS earphone
-charging boxes and similar projects. Displays values 0–199 using 5 GPIO
-pins and no extra driver hardware.
+Arduino library for driving the 188-type charlieplexed LED digital segment display. Displays values 0–199 using 5 GPIO pins and no extra driver hardware.
 
-![Wiring diagram](images/wiring.svg)
+Hardware Setup
+--------------
+Uses 5 digital pins, charlieplexed — no common ground/anode wiring needed. Each pin needs its own series resistor (start at 100Ω, tune for brightness — 1 resistor per pin, not per LED, since charlieplexing routes segment current through pin pairs). Avoid pins with a fixed hardware pull-up/pull-down or reserved boot/debug function on your board.
 
-## Wiring
+Wire the 5 pins in datasheet order (1–5) and pass them to the constructor in that order, e.g. `Segment188(PA0, PA1, PA2, PA3, PA4)`.
 
-- 5 GPIO pins → tube pins 1–5, each through its own series resistor
-  (start at 100Ω, tune for brightness — 1 resistor per pin, not per LED).
-- No common ground/anode connection needed.
+Repository Contents
+-------------------
+* **/examples** - Arduino example sketches
 
-## Installation
 
-Download as ZIP → Arduino IDE → Sketch → Include Library → Add .ZIP
-Library, or clone into your sketchbook's `libraries` folder:
-
-```
-cd ~/Documents/Arduino/libraries
-git clone https://github.com/YOUR_USERNAME/Segment188.git
-```
-
-## Usage
-
+Usage
+-----
 ```cpp
 #include <Segment188.h>
 
@@ -40,21 +30,8 @@ void loop() {
 }
 ```
 
-## API
+Documentation
 
-| Function | Description |
-|---|---|
-| `Segment188(p1, p2, p3, p4, p5)` | Constructor — 5 GPIO pins, mapped to datasheet pins 1–5 in order. |
-| `begin()` | Call once in `setup()`. |
-| `setValue(uint16_t value)` | 0–199. 100+ lights the leading "1". |
-| `update()` | Call every `loop()` pass. Non-blocking. |
-| `setStepInterval(unsigned long us)` | Scan speed; default 300µs/segment. |
-| `clear()` | Turn the display off. |
-
-The segment-to-pin mapping (derived from the datasheet's pin diagram) is
-documented in comments at the top of `src/Segment188.cpp` — edit it there
-if your part's wiring differs.
-
-## License
-
+License Information
+-------------------
 MIT — see [LICENSE](LICENSE).
